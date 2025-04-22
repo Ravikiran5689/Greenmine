@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Mine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="nfc.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="a-logo-design-featuring-the-text-green-m_U0rQTnxhQJShgkWDqYadEA_rBRtwK-kSlmMyqeUXw58Xg.jpeg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- NFC Scanner Modal -->
+    <div class="nfc-modal" id="nfcModal">
+        <div class="nfc-content">
+            <span class="close-nfc">&times;</span>
+            <h3>Scan Your NFC Tag</h3>
+            <div class="nfc-animation">
+                <div class="nfc-icon"><i class="fas fa-rss"></i></div>
+                <div class="nfc-wave"></div>
+                <div class="nfc-wave delay-1"></div>
+                <div class="nfc-wave delay-2"></div>
+            </div>
+            <p id="nfcStatus">Hold your NFC tag near your device...</p>
+            <button id="cancelNfc" class="btn-secondary">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Wallet Connect Modal -->
+    <div class="wallet-modal" id="walletModal">
+        <div class="wallet-content">
+            <span class="close-wallet">&times;</span>
+            <h3>Connect Your Wallet</h3>
+            <div class="wallet-options">
+                <button class="wallet-btn" id="metamaskBtn">
+                    <img src="images/metamask.png" alt="MetaMask">
+                    MetaMask
+                </button>
+                <button class="wallet-btn" id="walletconnectBtn">
+                    <img src="images/walletconnect.png" alt="WalletConnect">
+                    WalletConnect
+                </button>
+                <button class="wallet-btn" id="coinbaseBtn">
+                    <img src="images/coinbase.png" alt="Coinbase Wallet">
+                    Coinbase Wallet
+                </button>
+            </div>
+            <p class="wallet-terms">By connecting, you agree to our <a href="#">Terms of Service</a></p>
+        </div>
+    </div>
+
+    <!-- Header/Navbar -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="a-logo-design-featuring-the-text-green-m_U0rQTnxhQJShgkWDqYadEA_rBRtwK-kSlmMyqeUXw58Xg-removebg-preview.png">
+                    <span>Green Mine</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#rewards">Rewards</a></li>
+                    <li><a href="#partners">Partners</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li id="walletNavBtn"><a href="#"><i class="fas fa-wallet"></i> Connect Wallet</a></li>
+                    <li class="btn-signup"><a href="#"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+                </ul>
+                <div class="hamburger">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Turn Your Trash Into Crypto Rewards</h1>
+                <p class="tagline">Recycle. Earn. Redeem. Repeat.</p>
+                <p class="subtext">Waste Crypto rewards you with digital tokens for recycling through our smart bins. Exchange tokens for discounts, NFTs, and even stocks!</p>
+                <div class="cta-buttons">
+                    <button id="connectWalletBtn" class="btn-primary">Connect Wallet</button>
+                    <button id="scanNfcBtn" class="btn-secondary"><i class="fas fa-rss"></i> Scan NFC Tag</button>
+                </div>
+                <div class="wallet-info" id="walletInfo" style="display: none;">
+                    <p><i class="fas fa-wallet"></i> Connected: <span id="walletAddress">0x...0000</span></p>
+                    <p><i class="fas fa-coins"></i> Balance: <span id="tokenBalance">0</span> WASTE</p>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="Recycle-removebg-preview.png">
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section-how">
+        <div class="container">
+            <h2>How Waste Crypto Works</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-icon"><i class="fas fa-user-plus"></i></div>
+                    <h3>Create Account</h3>
+                    <p>Sign up and connect your crypto wallet to start earning.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-icon"><i class="fas fa-recycle"></i></div>
+                    <h3>Recycle Items</h3>
+                    <p>Use our NFC-enabled smart bins to track your recycling.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-icon"><i class="fas fa-coins"></i></div>
+                    <h3>Earn Tokens</h3>
+                    <p>Get WASTE tokens instantly deposited to your wallet.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-icon"><i class="fas fa-gift"></i></div>
+                    <h3>Redeem Rewards</h3>
+                    <p>Exchange tokens for perks from our partner brands.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Smart Bin Technology Section -->
+    <section class="section-technology">
+        <div class="container">
+            <div class="tech-content">
+                <h2>NFC-Enabled Smart Bin Technology</h2>
+                <p>Our advanced recycling bins use Near Field Communication (NFC) to securely identify users and track recycling activity in real-time.</p>
+                <ul class="tech-features">
+                    <li><i class="fas fa-check-circle"></i> Tap your phone or NFC card to identify yourself</li>
+                    <li><i class="fas fa-check-circle"></i> Sensors detect and categorize recycled items</li>
+                    <li><i class="fas fa-check-circle"></i> Instant token rewards deposited to your wallet</li>
+                    <li><i class="fas fa-check-circle"></i> Tamper-proof blockchain recording</li>
+                </ul>
+                <button id="nfcDemoBtn" class="btn-primary"><i class="fas fa-rss"></i> Try NFC Demo</button>
+            </div>
+            <div class="tech-image">
+                <img src="Untitled design (6).png" alt="Smart Bin Diagram">
+            </div>
+        </div>
+    </section>
+
+    <!-- Rewards Section -->
+    <section id="rewards" class="section-rewards">
+        <div class="container">
+            <h2>Rewards You Can Earn</h2>
+            <div class="rewards-grid">
+                <!-- Rewards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="section-dashboard">
+        <div class="container">
+            <h2>Your Recycling Dashboard</h2>
+            <div class="dashboard-container">
+                <div class="stats-card">
+                    <h3>Your Impact</h3>
+                    <div class="stat">
+                        <div class="stat-value" id="totalRecycled">0</div>
+                        <div class="stat-label">Items Recycled</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="co2Saved">0</div>
+                        <div class="stat-label">CO₂ Saved (kg)</div>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>Earnings History</h3>
+                    <canvas id="earningsChart"></canvas>
+                </div>
+                <div class="transactions-card">
+                    <h3>Recent Transactions</h3>
+                    <div class="transactions-list" id="transactionsList">
+                        <!-- Transactions will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section id="partners" class="section-partners">
+        <div class="container">
+            <h2>Our Trusted Partners</h2>
+            <div class="partners-grid">
+                <!-- Partners will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section-cta">
+        <div class="container">
+            <h2>Ready to Turn Your Waste Into Wealth?</h2>
+            <p>Join thousands of users already earning crypto while saving the planet.</p>
+            <div class="cta-buttons">
+                <button id="finalConnectBtn" class="btn-primary">Connect Wallet</button>
+                <button id="learnMoreBtn" class="btn-secondary">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="logo">
+                        <img src="a-logo-design-featuring-the-text-green-m_U0rQTnxhQJShgkWDqYadEA_rBRtwK-kSlmMyqeUXw58Xg.jpeg">
+                        <span>Green Mine</span>
+                    </div>
+                    <p class="slogan">Waste to Wealth</p>
+                    <p>Rewarding sustainable behavior through blockchain technology.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#rewards">Rewards</a></li>
+                        <li><a href="#partners">Partners</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Whitepaper</a></li>
+                        <li><a href="#">Tokenomics</a></li>
+                        <li><a href="#">Smart Contract</a></li>
+                        <li><a href="#">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h3>Stay Updated</h3>
+                    <p>Subscribe to our newsletter for the latest updates.</p>
+                    <form id="newsletterForm">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Green Mine All rights reserved</p>
+                <div class="legal-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js">
+        
+document.addEventListener('DOMContentLoaded', function() {
+
+    initMobileMenu();
+    initWalletConnection();
+    initNFCScanner();
+    loadRewards();
+    loadPartners();
+    loadDashboardData();
+    initNewsletterForm();
+    
+    // Set up event listeners
+    document.getElementById('connectWalletBtn').addEventListener('click', openWalletModal);
+    document.getElementById('finalConnectBtn').addEventListener('click', openWalletModal);
+    document.getElementById('scanNfcBtn').addEventListener('click', openNfcModal);
+    document.getElementById('nfcDemoBtn').addEventListener('click', openNfcModal);
+});
+
+// Mobile menu toggle
+function initMobileMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
+}
+
+// Load rewards data
+function loadRewards() {
+    const rewardsGrid = document.querySelector('.rewards-grid');
+    
+    // Sample rewards data - in a real app this would come from an API
+    const rewards = [
+        {
+            id: 1,
+            title: "Starbucks $5 Gift Card",
+            description: "Enjoy your favorite coffee with this digital gift card",
+            image: "starbucks-logo.png",
+            price: 100,
+            category: "discounts",
+            badge: "Popular"
+        },
+        {
+            id: 2,
+            title: "Tesla Fractional Share",
+            description: "Own a piece of Tesla! Redeem for a fractional share of TSLA stock",
+            image: "tesla-stock.png",
+            price: 500,
+            category: "stocks"
+        },
+        {
+            id: 3,
+            title: "Green Warrior NFT",
+            description: "Exclusive environmental NFT with utility across our partner network",
+            image: "eco-nft.png",
+            price: 750,
+            category: "nfts",
+            badge: "Limited"
+        },
+        {
+            id: 4,
+            title: "Amazon $10 Credit",
+            description: "Apply this credit to your next Amazon purchase of eligible items",
+            image: "amazon-logo.png",
+            price: 200,
+            category: "discounts"
+        },
+        {
+            id: 5,
+            title: "Donate to WWF",
+            description: "Support wildlife conservation with a token donation",
+            image: "wwf-logo.png",
+            price: 50,
+            category: "charity"
+        },
+        {
+            id: 6,
+            title: "Apple Fractional Share",
+            description: "Own a piece of Apple! Redeem for a fractional share of AAPL stock",
+            image: "apple-stock.png",
+            price: 450,
+            category: "stocks"
+        },
+        {
+            id: 7,
+            title: "Spotify 1 Month Premium",
+            description: "Enjoy ad-free music streaming for one month with this reward",
+            image: "spotify-logo.png",
+            price: 150,
+            category: "discounts",
+            badge: "New"
+        },
+        {
+            id: 8,
+            title: "Recycle Champion NFT",
+            description: "Special edition NFT for top recyclers, with exclusive benefits",
+            image: "recycle-nft.png",
+            price: 1000,
+            category: "nfts"
+        }
+    ];
+
+    // Clear existing content
+    rewardsGrid.innerHTML = '';
+
+    // Add rewards to the grid
+    rewards.forEach(reward => {
+        const rewardItem = document.createElement('div');
+        rewardItem.className = 'reward-item';
+        rewardItem.dataset.category = reward.category;
+        rewardItem.dataset.id = reward.id;
+
+        let badgeHtml = '';
+        if (reward.badge) {
+            badgeHtml = `<div class="reward-badge">${reward.badge}</div>`;
+        }
+
+        rewardItem.innerHTML = `
+            <div class="reward-image">
+                <img src="images/${reward.image}" alt="${reward.title}">
+                ${badgeHtml}
+            </div>
+            <div class="reward-details">
+                <h3 class="reward-title">${reward.title}</h3>
+                <p class="reward-description">${reward.description}</p>
+                <div class="reward-price">
+                    <span class="reward-tokens"><i class="fas fa-coins"></i> ${reward.price} WASTE</span>
+                    <button class="reward-button">Redeem</button>
+                </div>
+            </div>
+        `;
+
+        rewardsGrid.appendChild(rewardItem);
+    });
+
+    // Add event listeners to reward buttons
+    document.querySelectorAll('.reward-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const rewardItem = this.closest('.reward-item');
+            const rewardId = rewardItem.dataset.id;
+            const rewardTitle = rewardItem.querySelector('.reward-title').textContent;
+            const rewardPrice = parseInt(rewardItem.querySelector('.reward-tokens').textContent);
+            
+            // Check if wallet is connected
+            if (!window.ethereum || !window.ethereum.selectedAddress) {
+                alert('Please connect your wallet first');
+                openWalletModal();
+                return;
+            }
+
+            // Check token balance (simplified - in real app would check blockchain)
+            const currentBalance = parseInt(document.getElementById('tokenBalance').textContent) || 0;
+            if (currentBalance < rewardPrice) {
+                alert(`You need ${rewardPrice - currentBalance} more WASTE tokens to redeem this reward`);
+                return;
+            }
+
+            // Confirm redemption
+            if (confirm(`Redeem ${rewardPrice} WASTE tokens for "${rewardTitle}"?`)) {
+                // In a real app, this would call a smart contract function
+                alert(`Success! Your ${rewardTitle} reward will be sent to your wallet.`);
+                
+                // Update balance (simplified - in real app would wait for blockchain confirmation)
+                document.getElementById('tokenBalance').textContent = currentBalance - rewardPrice;
+                
+                // Add to transaction history
+                addTransaction(rewardTitle, -rewardPrice);
+            }
+        });
+    });
+}
+
+// Load partners data
+function loadPartners() {
+    const partnersGrid = document.querySelector('.partners-grid');
+    
+    // Sample partners data
+    const partners = [
+        { name: "Starbucks", logo: "starbucks-logo.png" },
+        { name: "Amazon", logo: "amazon-logo.png" },
+        { name: "Tesla", logo: "tesla-logo.png" },
+        { name: "Nike", logo: "nike-logo.png" },
+        { name: "Coca-Cola", logo: "coca-cola-logo.png" },
+        { name: "WWF", logo: "wwf-logo.png" }
+    ];
+
+    // Clear existing content
+    partnersGrid.innerHTML = '';
+
+    // Add partners to the grid
+    partners.forEach(partner => {
+        const partnerLogo = document.createElement('div');
+        partnerLogo.className = 'partner-logo';
+        partnerLogo.innerHTML = `<img src="images/${partner.logo}" alt="${partner.name}">`;
+        partnersGrid.appendChild(partnerLogo);
+    });
+}
+
+// Load dashboard data
+function loadDashboardData() {
+    // Sample data - in a real app this would come from an API
+    const totalRecycled = 127;
+    const co2Saved = 42.5;
+    
+    // Update stats
+    document.getElementById('totalRecycled').textContent = totalRecycled;
+    document.getElementById('co2Saved').textContent = co2Saved;
+    
+    // Initialize chart
+    initEarningsChart();
+    
+    // Load transactions
+    loadTransactions();
+}
+
+// Initialize earnings chart
+function initEarningsChart() {
+    const ctx = document.getElementById('earningsChart').getContext('2d');
+    
+    // Sample data
+    const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+    const data = [50, 75, 60, 90, 110, 95];
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'WASTE Tokens Earned',
+                data: data,
+                backgroundColor: 'rgba(46, 204, 113, 0.2)',
+                borderColor: 'rgba(46, 204, 113, 1)',
+                borderWidth: 2,
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+
+// Load transactions
+function loadTransactions() {
+    const transactionsList = document.getElementById('transactionsList');
+    
+    // Sample transactions - in a real app this would come from an API
+    const transactions = [
+        { description: "Recycled 5 bottles", amount: 25, date: "2023-06-15" },
+        { description: "Redeemed Starbucks $5", amount: -100, date: "2023-06-10" },
+        { description: "Recycled 3 cans", amount: 15, date: "2023-06-05" },
+        { description: "Recycled 10 items", amount: 50, date: "2023-05-28" },
+        { description: "Donated to WWF", amount: -50, date: "2023-05-20" }
+    ];
+
+    // Clear existing content
+    transactionsList.innerHTML = '';
+
+    // Add transactions to the list
+    transactions.forEach(tx => {
+        const txItem = document.createElement('div');
+        txItem.className = 'transaction-item';
+        
+        const txAmountClass = tx.amount > 0 ? 'transaction-amount' : 'transaction-amount negative';
+        
+        txItem.innerHTML = `
+            <div class="transaction-info">
+                <div class="transaction-description">${tx.description}</div>
+                <div class="transaction-date">${formatDate(tx.date)}</div>
+            </div>
+            <div class="${txAmountClass}">${tx.amount > 0 ? '+' : ''}${tx.amount} WASTE</div>
+        `;
+        
+        transactionsList.appendChild(txItem);
+    });
+}
+
+// Add a new transaction
+function addTransaction(description, amount) {
+    const transactionsList = document.getElementById('transactionsList');
+    const txItem = document.createElement('div');
+    txItem.className = 'transaction-item';
+    
+    const txAmountClass = amount > 0 ? 'transaction-amount' : 'transaction-amount negative';
+    const today = new Date().toISOString().split('T')[0];
+    
+    txItem.innerHTML = `
+        <div class="transaction-info">
+            <div class="transaction-description">${description}</div>
+            <div class="transaction-date">${formatDate(today)}</div>
+        </div>
+        <div class="${txAmountClass}">${amount > 0 ? '+' : ''}${amount} WASTE</div>
+    `;
+    
+    // Add to the top of the list
+    transactionsList.insertBefore(txItem, transactionsList.firstChild);
+}
+
+// Format date for display
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+}
+
+// Initialize newsletter form
+function initNewsletterForm() {
+    const form = document.getElementById('newsletterForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = this.querySelector('input[type="email"]');
+            
+            if (emailInput.value) {
+                alert('Thank you for subscribing to our newsletter!');
+                emailInput.value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+    }
+}
+
+// Open wallet modal
+function openWalletModal() {
+    document.getElementById('walletModal').style.display = 'block';
+}
+
+// Open NFC modal
+function openNfcModal() {
+    document.getElementById('nfcModal').style.display = 'block';
+    // In a real app, this would start the NFC scanning process
+    document.getElementById('nfcStatus').textContent = 'Hold your NFC tag near your device...';
+}
+
+// Initialize wallet connection
+function initWalletConnection() {
+    const walletModal = document.getElementById('walletModal');
+    const closeBtn = document.querySelector('.close-wallet');
+    
+    // Close modal when clicking X
+    closeBtn.addEventListener('click', () => {
+        walletModal.style.display = 'none';
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === walletModal) {
+            walletModal.style.display = 'none';
+        }
+    });
+    
+    // MetaMask button
+    document.getElementById('metamaskBtn').addEventListener('click', connectMetaMask);
+    
+    // WalletConnect button
+    document.getElementById('walletconnectBtn').addEventListener('click', () => {
+        alert('WalletConnect integration would be implemented here');
+    });
+    
+    // Coinbase button
+    document.getElementById('coinbaseBtn').addEventListener('click', () => {
+        alert('Coinbase Wallet integration would be implemented here');
+    });
+}
+
+// Initialize NFC scanner
+function initNFCScanner() {
+    const nfcModal = document.getElementById('nfcModal');
+    const closeBtn = document.querySelector('.close-nfc');
+    const cancelBtn = document.getElementById('cancelNfc');
+    
+    // Close modal when clicking X
+    closeBtn.addEventListener('click', () => {
+        nfcModal.style.display = 'none';
+    });
+    
+    // Close modal when clicking Cancel
+    cancelBtn.addEventListener('click', () => {
+        nfcModal.style.display = 'none';
+    });
+    
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+        if (e.target === nfcModal) {
+            nfcModal.style.display = 'none';
+        }
+    });
+    
+    // In a real app, this would set up NFC scanning
+    // For demo purposes, we'll simulate NFC scan after 3 seconds
+    setTimeout(() => {
+        if (nfcModal.style.display === 'block') {
+            simulateNFCSuccess();
+        }
+    }, 3000);
+}
+
+// Simulate successful NFC scan
+function simulateNFCSuccess() {
+    document.getElementById('nfcStatus').innerHTML = `
+        <i class="fas fa-check-circle" style="color: var(--primary-color);"></i> 
+        NFC tag scanned successfully! 25 WASTE tokens added to your balance.
+    `;
+    
+    // Update balance (simplified - in real app would wait for blockchain confirmation)
+    const currentBalance = parseInt(document.getElementById('tokenBalance').textContent) || 0;
+    document.getElementById('tokenBalance').textContent = currentBalance + 25;
+    
+    // Update recycled count
+    const currentRecycled = parseInt(document.getElementById('totalRecycled').textContent) || 0;
+    document.getElementById('totalRecycled').textContent = currentRecycled + 5;
+    
+    // Update CO2 saved
+    const currentCO2 = parseFloat(document.getElementById('co2Saved').textContent) || 0;
+    document.getElementById('co2Saved').textContent = (currentCO2 + 1.7).toFixed(1);
+    
+    // Add transaction
+    addTransaction("Recycled 5 items", 25);
+    
+    // Close modal after 3 seconds
+    setTimeout(() => {
+        document.getElementById('nfcModal').style.display = 'none';
+    }, 3000);
+}
+    </script>
+    <script src="js/nfc.js">
+        // NFC Scanning functionality
+// Note: Web NFC API is only available on Chrome for Android
+// https://web.dev/nfc/
+
+if ('NDEFReader' in window) {
+    // Browser supports Web NFC
+    const nfcStatus = document.getElementById('nfcStatus');
+    const nfcModal = document.getElementById('nfcModal');
+    
+    async function startNFCScan() {
+        try {
+            const ndef = new NDEFReader();
+            
+            await ndef.scan();
+            
+            ndef.addEventListener('readingerror', () => {
+                nfcStatus.textContent = 'Error reading NFC tag. Please try again.';
+            });
+            
+            ndef.addEventListener('reading', ({ message, serialNumber }) => {
+                nfcStatus.innerHTML = `
+                    <i class="fas fa-check-circle" style="color: var(--primary-color);"></i> 
+                    NFC tag scanned successfully! Processing...
+                `;
+                
+                // In a real app, you would:
+                // 1. Send the serialNumber to your backend
+                // 2. Verify the user
+                // 3. Process the recycling transaction
+                // 4. Update the UI with the results
+                
+                // For demo, we'll simulate processing
+                setTimeout(() => {
+                    processNFCSuccess(serialNumber);
+                }, 2000);
+            });
+            
+        } catch (error) {
+            nfcStatus.textContent = `NFC error: ${error.message}`;
+            console.error('NFC error:', error);
+        }
+    }
+    
+    function processNFCSuccess(serialNumber) {
+        nfcStatus.innerHTML = `
+            <i class="fas fa-check-circle" style="color: var(--primary-color);"></i> 
+            25 WASTE tokens added to your balance for recycling 5 items.
+        `;
+        
+        // Update balance (simplified - in real app would wait for blockchain confirmation)
+        const currentBalance = parseInt(document.getElementById('tokenBalance').textContent) || 0;
+        document.getElementById('tokenBalance').textContent = currentBalance + 25;
+        
+        // Update recycled count
+        const currentRecycled = parseInt(document.getElementById('totalRecycled').textContent) || 0;
+        document.getElementById('totalRecycled').textContent = currentRecycled + 5;
+        
+        // Update CO2 saved
+        const currentCO2 = parseFloat(document.getElementById('co2Saved').textContent) || 0;
+        document.getElementById('co2Saved').textContent = (currentCO2 + 1.7).toFixed(1);
+        
+        // Add transaction
+        const transactionsList = document.getElementById('transactionsList');
+        const txItem = document.createElement('div');
+        txItem.className = 'transaction-item';
+        const today = new Date().toISOString().split('T')[0];
+        
+        txItem.innerHTML = `
+            <div class="transaction-info">
+                <div class="transaction-description">Recycled 5 items</div>
+                <div class="transaction-date">${new Date(today).toLocaleDateString()}</div>
+            </div>
+            <div class="transaction-amount">+25 WASTE</div>
+        `;
+        
+        transactionsList.insertBefore(txItem, transactionsList.firstChild);
+        
+        // Close modal after 3 seconds
+        setTimeout(() => {
+            nfcModal.style.display = 'none';
+        }, 3000);
+    }
+    
+    // Start NFC scan when modal opens
+    document.getElementById('nfcModal').addEventListener('shown', startNFCScan);
+    
+} else {
+    // Browser doesn't support Web NFC
+    console.log('Web NFC not supported');
+    
+    // Modify NFC button to indicate lack of support
+    document.getElementById('scanNfcBtn').textContent = 'NFC Not Supported';
+    document.getElementById('scanNfcBtn').classList.add('disabled');
+    document.getElementById('scanNfcBtn').disabled = true;
+    
+    document.getElementById('nfcDemoBtn').textContent = 'View NFC Demo';
+}
+    </script>
+    <script src="js/web3.js">
+        // Web3 and blockchain integration
+async function connectMetaMask() {
+    try {
+        // Check if MetaMask is installed
+        if (!window.ethereum) {
+            alert('Please install MetaMask to connect your wallet');
+            window.open('https://metamask.io/', '_blank');
+            return;
+        }
+
+        // Request account access
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const address = accounts[0];
+
+        // Shorten address for display
+        const shortenedAddress = `${address.substring(0, 6)}...${address.substring(address.length - 4)}`;
+
+        // Update UI
+        document.getElementById('walletAddress').textContent = shortenedAddress;
+        document.getElementById('walletInfo').style.display = 'block';
+        
+        // Close modal
+        document.getElementById('walletModal').style.display = 'none';
+        
+        // Update nav button
+        const walletNavBtn = document.getElementById('walletNavBtn');
+        walletNavBtn.innerHTML = `<a href="#"><i class="fas fa-wallet"></i> ${shortenedAddress}</a>`;
+        
+        // In a real app, you would:
+        // 1. Initialize Web3 with the provider
+        // 2. Load the user's token balance
+        // 3. Set up event listeners for account changes
+        
+        // For demo purposes, we'll simulate a token balance
+        document.getElementById('tokenBalance').textContent = '745';
+        
+        // Listen for account changes
+        window.ethereum.on('accountsChanged', (accounts) => {
+            if (accounts.length === 0) {
+                // User disconnected wallet
+                document.getElementById('walletInfo').style.display = 'none';
+                walletNavBtn.innerHTML = '<a href="#"><i class="fas fa-wallet"></i> Connect Wallet</a>';
+            } else {
+                // Account changed
+                const newAddress = accounts[0];
+                const newShortAddress = `${newAddress.substring(0, 6)}...${newAddress.substring(newAddress.length - 4)}`;
+                document.getElementById('walletAddress').textContent = newShortAddress;
+                walletNavBtn.innerHTML = `<a href="#"><i class="fas fa-wallet"></i> ${newShortAddress}</a>`;
+            }
+        });
+        
+    } catch (error) {
+        console.error('Error connecting MetaMask:', error);
+        alert('Error connecting wallet. Please try again.');
+    }
+}
+
+// In a real implementation, you would also have:
+// - Contract ABI and address
+// - Functions to interact with the smart contract
+// - Event listeners for blockchain events
+// - Token balance updates
+// - Transaction history loading
+
+    </script>
+</body>
+</html>
